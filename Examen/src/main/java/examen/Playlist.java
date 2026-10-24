@@ -59,5 +59,59 @@ public class Playlist {
             numero++;
         }
     }
+    
+    // Avanza a la siguiente cancion. Devuelve null si ya estaba en la cola.
+    public Cancion siguiente() {
+        if (actual == null || actual.getSiguiente() == null) {
+            return null;
+        }
+        actual = actual.getSiguiente();
+        actual.getDato().reproducir();
+        return actual.getDato();
+    }
+
+    // vuelve a la cancion anterior da null si ya estaba en la cabeza.
+    public Cancion anterior() {
+        if (actual == null || actual.getAnterior() == null) {
+            return null;
+        }
+        actual = actual.getAnterior();
+        actual.getDato().reproducir();
+        return actual.getDato();
+    }
+
+    // Elimina el nodo actual y reconecta
+    public void eliminarActual() {
+        if (actual == null) {
+            return;
+        }
+
+        NodoDoble previo = actual.getAnterior();
+        NodoDoble proximo = actual.getSiguiente();
+
+        if (previo == null && proximo == null) {
+            // Unico nodo
+            cabeza = null;
+            cola = null;
+            actual = null;
+        } else if (previo == null) {
+            // Nodo cabeza
+            proximo.setAnterior(null);
+            cabeza = proximo;
+            actual = proximo;
+        } else if (proximo == null) {
+            // Nodo cola
+            previo.setSiguiente(null);
+            cola = previo;
+            actual = previo;
+        } else {
+            // Nodo meitad
+            previo.setSiguiente(proximo);
+            proximo.setAnterior(previo);
+            actual = proximo;
+        }
+
+        ocupa--;
+    }
 
 }

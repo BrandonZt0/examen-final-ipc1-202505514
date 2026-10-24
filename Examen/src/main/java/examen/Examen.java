@@ -18,5 +18,14 @@ public class Examen {
 
         System.out.println();
         playlist.mostrarPlaylist();
+        
+        System.out.println();
+        playlist.siguiente();      // reproduce cancion 2
+        playlist.siguiente();      // reproduce cancion 3
+        playlist.anterior();       // reproduce cancion 2
+        playlist.eliminarActual(); // elimina cancion 2
+
+        System.out.println();
+        playlist.mostrarPlaylist();
     }
 }
